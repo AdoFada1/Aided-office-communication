@@ -445,27 +445,27 @@
                     <p>Administrator</p>
                 </div>
 
-                <div class="nav-item active">
+                <div class="nav-item active" data-tab="dashboard">
                     <i class="fas fa-th-large"></i>
                     <span>Dashboard</span>
                 </div>
-                <div class="nav-item">
+                <div class="nav-item" data-tab="submissions">
                     <i class="fas fa-paper-plane"></i>
                     <span>Submissions</span>
                 </div>
-                <div class="nav-item">
+                <div class="nav-item" data-tab="approvals">
                     <i class="fas fa-check-circle"></i>
                     <span>Approvals</span>
                 </div>
-                <div class="nav-item">
+                <div class="nav-item" data-tab="chat">
                     <i class="fas fa-comments"></i>
                     <span>Team Chat</span>
                 </div>
-                <div class="nav-item">
+                <div class="nav-item" data-tab="directory">
                     <i class="fas fa-address-book"></i>
                     <span>Directory</span>
                 </div>
-                <div class="nav-item">
+                <div class="nav-item" data-tab="settings">
                     <i class="fas fa-cog"></i>
                     <span>Settings</span>
                 </div>
@@ -558,16 +558,17 @@
                         </div>
                         <div class="form-group">
                             <label>Signature</label>
-                            <div style="border: 1px dashed #ccc; height: 100px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">
-                                <i class="fas fa-signature"></i> Signature Pad
+                            <div id="signature-pad" style="border: 1px dashed #ccc; height: 100px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">
+                                <i class="fas fa-signature"></i> Click to draw your signature
                             </div>
+                            <button id="clear-signature" class="btn" style="margin-top: 8px; background: var(--gray); color: white; padding: 8px 12px;">Clear Signature</button>
                         </div>
                     </div>
                     
-                    <button class="btn btn-primary">Submit for Approval</button>
+                    <button class="btn btn-primary" id="submit-btn">Submit for Approval</button>
 
                     <h2 class="section-title" style="margin-top: 32px;">My Submissions</h2>
-                    <div class="submission-list">
+                    <div class="submission-list" id="my-submissions">
                         <div class="submission-item">
                             <h3>Budget Approval for Q4 2023</h3>
                             <div class="submission-meta">
@@ -597,7 +598,7 @@
                     <h2 class="section-title">Approval Queue</h2>
                     <p>Flow: Staff → HoD Approval → Admin Final Approval</p>
                     
-                    <div class="submission-list">
+                    <div class="submission-list" id="approval-list">
                         <div class="submission-item">
                             <h3>Software License Renewal</h3>
                             <div class="submission-meta">
@@ -635,7 +636,7 @@
                             <span>General Channel</span>
                             <span>12 online</span>
                         </div>
-                        <div class="chat-messages">
+                        <div class="chat-messages" id="chat-messages">
                             <div class="message received">
                                 <strong>Sarah Johnson:</strong> Has everyone submitted their reports?
                             </div>
@@ -650,8 +651,8 @@
                             </div>
                         </div>
                         <div class="chat-input">
-                            <input type="text" placeholder="Type a message...">
-                            <button class="btn btn-primary">Send</button>
+                            <input type="text" id="chat-input" placeholder="Type a message...">
+                            <button class="btn btn-primary" id="send-chat">Send</button>
                         </div>
                     </div>
                 </div>
@@ -660,10 +661,10 @@
                     <h2 class="section-title">Staff Directory</h2>
                     
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search by name or department...">
+                        <input type="text" class="form-control" id="directory-search" placeholder="Search by name or department...">
                     </div>
                     
-                    <table class="directory-table">
+                    <table class="directory-table" id="directory-table">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -706,6 +707,50 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div class="tab-content" id="settings">
+                    <h2 class="section-title">Settings</h2>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="profile-name">Full Name</label>
+                            <input type="text" class="form-control" id="profile-name" value="Admin User">
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-email">Email</label>
+                            <input type="email" class="form-control" id="profile-email" value="admin@aiseb.org">
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="profile-department">Department</label>
+                            <select class="form-control" id="profile-department">
+                                <option>Executive Secretary</option>
+                                <option selected>Administration</option>
+                                <option>HR</option>
+                                <option>Accounts</option>
+                                <option>IT Support</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-role">Role</label>
+                            <input type="text" class="form-control" id="profile-role" value="Administrator" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="profile-password">New Password</label>
+                        <input type="password" class="form-control" id="profile-password" placeholder="Enter new password">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="profile-password-confirm">Confirm Password</label>
+                        <input type="password" class="form-control" id="profile-password-confirm" placeholder="Confirm new password">
+                    </div>
+                    
+                    <button class="btn btn-primary">Save Changes</button>
+                </div>
             </div>
         </div>
 
@@ -715,19 +760,28 @@
     </div>
 
     <script>
-        // Simple tab switching functionality
+        // Tab switching functionality
         document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function() {
-                // Remove active class from all items
-                document.querySelectorAll('.nav-item').forEach(i => {
-                    i.classList.remove('active');
+            if (item.dataset.tab) {
+                item.addEventListener('click', function() {
+                    // Remove active class from all items
+                    document.querySelectorAll('.nav-item').forEach(i => {
+                        i.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    
+                    // Hide all tab contents
+                    document.querySelectorAll('.tab-content').forEach(tab => {
+                        tab.classList.remove('active');
+                    });
+                    
+                    // Show the selected tab content
+                    const tabId = this.dataset.tab;
+                    document.getElementById(tabId).classList.add('active');
                 });
-                
-                // Add active class to clicked item
-                this.classList.add('active');
-                
-                // You would add code here to show the corresponding tab content
-            });
+            }
         });
 
         // Simulate online status with a pulsing effect
@@ -735,6 +789,149 @@
             const indicator = document.querySelector('.online-indicator');
             indicator.style.opacity = indicator.style.opacity === '0.7' ? '1' : '0.7';
         }, 1500);
+
+        // Chat functionality
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.getElementById('chat-messages');
+        const sendChatBtn = document.getElementById('send-chat');
+
+        sendChatBtn.addEventListener('click', () => {
+            if (chatInput.value.trim() !== '') {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message sent';
+                messageDiv.innerHTML = `<strong>You:</strong> ${chatInput.value}`;
+                chatMessages.appendChild(messageDiv);
+                chatInput.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Simulate a reply after a short delay
+                setTimeout(() => {
+                    const replies = [
+                        "Thanks for the update!",
+                        "I'll look into that.",
+                        "Can you provide more details?",
+                        "Let's discuss this in the meeting.",
+                        "I agree with that approach."
+                    ];
+                    const randomReply = replies[Math.floor(Math.random() * replies.length)];
+                    const replyDiv = document.createElement('div');
+                    replyDiv.className = 'message received';
+                    replyDiv.innerHTML = `<strong>Team Member:</strong> ${randomReply}`;
+                    chatMessages.appendChild(replyDiv);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+            }
+        });
+
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendChatBtn.click();
+            }
+        });
+
+        // Directory search functionality
+        const directorySearch = document.getElementById('directory-search');
+        const directoryTable = document.getElementById('directory-table');
+        const tableRows = directoryTable.getElementsByTagName('tr');
+
+        directorySearch.addEventListener('input', () => {
+            const searchText = directorySearch.value.toLowerCase();
+            
+            for (let i = 1; i < tableRows.length; i++) {
+                const cells = tableRows[i].getElementsByTagName('td');
+                let found = false;
+                
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j].textContent.toLowerCase().includes(searchText)) {
+                        found = true;
+                        break;
+                    }
+                }
+                
+                tableRows[i].style.display = found ? '' : 'none';
+            }
+        });
+
+        // Signature pad functionality
+        const signaturePad = document.getElementById('signature-pad');
+        const clearSignatureBtn = document.getElementById('clear-signature');
+        let isDrawing = false;
+        
+        signaturePad.addEventListener('click', () => {
+            signaturePad.innerHTML = '';
+            signaturePad.style.background = 'white';
+            const canvas = document.createElement('canvas');
+            canvas.width = signaturePad.offsetWidth;
+            canvas.height = signaturePad.offsetHeight;
+            signaturePad.appendChild(canvas);
+            
+            const ctx = canvas.getContext('2d');
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = '#334155';
+            
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+            
+            function startDrawing(e) {
+                isDrawing = true;
+                draw(e);
+            }
+            
+            function draw(e) {
+                if (!isDrawing) return;
+                
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(e.offsetX, e.offsetY);
+            }
+            
+            function stopDrawing() {
+                isDrawing = false;
+                ctx.beginPath();
+            }
+        });
+
+        clearSignatureBtn.addEventListener('click', () => {
+            signaturePad.innerHTML = '<i class="fas fa-signature"></i> Click to draw your signature';
+            signaturePad.style.background = '';
+        });
+
+        // Form submission
+        const submitBtn = document.getElementById('submit-btn');
+        submitBtn.addEventListener('click', () => {
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            if (subject && message) {
+                alert('Submission sent for approval!');
+                document.getElementById('subject').value = '';
+                document.getElementById('message').value = '';
+                document.getElementById('attachment').value = '';
+                
+                // Add to my submissions
+                const mySubmissions = document.getElementById('my-submissions');
+                const newSubmission = document.createElement('div');
+                newSubmission.className = 'submission-item';
+                newSubmission.innerHTML = `
+                    <h3>${subject}</h3>
+                    <div class="submission-meta">
+                        <span>${document.getElementById('department').value}</span>
+                        <span>Just now</span>
+                    </div>
+                    <p>${message}</p>
+                    <div>
+                        <span class="status-badge status-pending">Pending</span>
+                    </div>
+                `;
+                mySubmissions.prepend(newSubmission);
+            } else {
+                alert('Please fill in all required fields');
+            }
+        });
     </script>
 </body>
 </html>
