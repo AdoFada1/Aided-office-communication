@@ -17,6 +17,9 @@
             --gray: #94a3b8;
             --card-bg: #ffffff;
             --border: #e2e8f0;
+            --dpm-color: #8b5cf6;
+            --hod-color: #0ea5e9;
+            --executive-color: #f97316;
         }
 
         * {
@@ -122,13 +125,28 @@
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            background: var(--primary);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 32px;
             margin: 0 auto 12px;
+        }
+
+        .avatar.admin {
+            background: var(--executive-color);
+        }
+
+        .avatar.hod {
+            background: var(--hod-color);
+        }
+
+        .avatar.dpm {
+            background: var(--dpm-color);
+        }
+
+        .avatar.staff {
+            background: var(--primary);
         }
 
         .user-profile h2 {
@@ -473,6 +491,65 @@
             border-bottom: 1px dashed var(--border);
         }
 
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 400px;
+            background: var(--light);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px;
+            border-radius: 12px;
+        }
+
+        .message.received {
+            background: white;
+            align-self: flex-start;
+        }
+
+        .message.sent {
+            background: var(--primary);
+            color: white;
+            align-self: flex-end;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 16px;
+            gap: 12px;
+            background: white;
+            border-top: 1px solid var(--border);
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+        }
+
         @media (max-width: 1100px) {
             .dashboard {
                 grid-template-columns: 1fr;
@@ -522,8 +599,12 @@
             <div class="demo-accounts">
                 <h4>Demo Accounts:</h4>
                 <div class="demo-account">
-                    <span>Admin: <strong>admin@aiseb.org</strong></span>
+                    <span>Executive: <strong>executive@aiseb.org</strong></span>
                     <span>Password: <strong>admin123</strong></span>
+                </div>
+                <div class="demo-account">
+                    <span>DPM: <strong>dpm@aiseb.org</strong></span>
+                    <span>Password: <strong>dpm123</strong></span>
                 </div>
                 <div class="demo-account">
                     <span>HOD: <strong>hod@aiseb.org</strong></span>
@@ -544,7 +625,7 @@
                     <h1>AISEB Office Communication System</h1>
                 </div>
                 <div class="user-info">
-                    <div class="role-badge" id="userRole">Administrator</div>
+                    <div class="role-badge" id="userRole">Executive Secretary</div>
                     <div id="userName">Executive Secretary</div>
                     <button class="btn btn-sm" id="logoutBtn" style="background: var(--danger); color: white;">Logout</button>
                 </div>
@@ -553,7 +634,7 @@
             <div class="dashboard">
                 <div class="sidebar">
                     <div class="user-profile">
-                        <div class="avatar">
+                        <div class="avatar" id="userAvatar">
                             <i class="fas fa-user-shield"></i>
                         </div>
                         <h2 id="profileName">Executive Secretary</h2>
@@ -572,22 +653,22 @@
                         <i class="fas fa-check-circle"></i>
                         <span>Approvals</span>
                     </div>
-                    <div class="nav-item admin-only">
-                        <i class="fas fa-file"></i>
-                        <span>File Management</span>
+                    <div class="nav-item" data-tab="chat">
+                        <i class="fas fa-comments"></i>
+                        <span>Chat</span>
+                    </div>
+                    <div class="nav-item dpm-only">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Register Staff</span>
                     </div>
                     <div class="nav-item admin-only">
                         <i class="fas fa-users"></i>
                         <span>User Management</span>
                     </div>
-                    <div class="nav-item admin-only">
-                        <i class="fas fa-user-plus"></i>
-                        <span>Register HOD</span>
-                    </div>
 
                     <div class="role-permission">
-                        <h3 id="roleTitle">Admin Privileges</h3>
-                        <p id="roleDescription">Full system access with approval authority</p>
+                        <h3 id="roleTitle">Executive Privileges</h3>
+                        <p id="roleDescription">Final approval authority for all requests</p>
                     </div>
                 </div>
 
@@ -601,8 +682,8 @@
                                 <div class="value">7</div>
                             </div>
                             <div class="stat-card">
-                                <h3>Total Users</h3>
-                                <div class="value">42</div>
+                                <h3>Department Staff</h3>
+                                <div class="value">24</div>
                             </div>
                             <div class="stat-card">
                                 <h3>My Submissions</h3>
@@ -615,7 +696,7 @@
                             <div class="activity-item">
                                 <i class="fas fa-file-alt"></i>
                                 <div>
-                                    <p><strong>HR Department</strong> submitted a new policy document</p>
+                                    <p><strong>IT Department</strong> submitted a software request</p>
                                     <small>10 minutes ago</small>
                                 </div>
                             </div>
@@ -629,8 +710,15 @@
                             <div class="activity-item">
                                 <i class="fas fa-forward"></i>
                                 <div>
-                                    <p><strong>IT HOD</strong> forwarded a software request</p>
+                                    <p><strong>Finance HOD</strong> forwarded a budget request</p>
                                     <small>1 hour ago</small>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <i class="fas fa-user-plus"></i>
+                                <div>
+                                    <p><strong>DPM</strong> registered 2 new staff members</p>
+                                    <small>2 hours ago</small>
                                 </div>
                             </div>
                         </div>
@@ -643,9 +731,10 @@
                             <div class="form-group">
                                 <label for="department">Department</label>
                                 <select class="form-control" id="department">
-                                    <option>HR</option>
-                                    <option>Accounts</option>
-                                    <option>IT Support</option>
+                                    <option>IT</option>
+                                    <option>Finance</option>
+                                    <option>Operations</option>
+                                    <option>Marketing</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -680,9 +769,9 @@
                             <div class="submission-item">
                                 <h3>Budget Approval for Q4 2023</h3>
                                 <div class="submission-meta">
-                                    <span>Accounts Department</span>
+                                    <span>Finance Department</span>
                                     <span>Yesterday</span>
-                                    <span>To: Accounts HOD</span>
+                                    <span>To: Finance HOD</span>
                                 </div>
                                 <p>Requesting approval for the proposed budget for the last quarter of 2023.</p>
                                 <div>
@@ -690,15 +779,15 @@
                                 </div>
                             </div>
                             <div class="submission-item">
-                                <h3>HR Policy Update</h3>
+                                <h3>Software License Request</h3>
                                 <div class="submission-meta">
-                                    <span>HR Department</span>
+                                    <span>IT Department</span>
                                     <span>2 days ago</span>
-                                    <span>To: HR HOD</span>
+                                    <span>To: IT HOD</span>
                                 </div>
-                                <p>Updated policy documents for remote work arrangements.</p>
+                                <p>Request for new software licenses for the development team.</p>
                                 <div>
-                                    <span class="status-badge status-forwarded">Forwarded to Executive Secretary</span>
+                                    <span class="status-badge status-forwarded">Forwarded to Executive</span>
                                 </div>
                             </div>
                         </div>
@@ -712,7 +801,7 @@
                             <div class="submission-item">
                                 <h3>Software License Renewal</h3>
                                 <div class="submission-meta">
-                                    <span>IT Support Department</span>
+                                    <span>IT Department</span>
                                     <span>Submitted by: David Wilson (IT HOD)</span>
                                     <span>Today</span>
                                 </div>
@@ -739,6 +828,74 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="tab-content" id="chat">
+                        <h2 class="section-title">Department Chat</h2>
+                        <p>Chat with Executive Secretary and other department members</p>
+                        
+                        <div class="chat-container">
+                            <div class="chat-header">
+                                <span>Executive Secretary Channel</span>
+                                <span id="onlineCount">3 online</span>
+                            </div>
+                            <div class="chat-messages" id="chat-messages">
+                                <div class="message received">
+                                    <strong>Executive Secretary:</strong> Welcome to the executive channel. How can I assist you today?
+                                </div>
+                                <div class="message received">
+                                    <strong>Finance HOD:</strong> I have forwarded the budget report for approval.
+                                </div>
+                                <div class="message sent">
+                                    <strong>You:</strong> I'll review it by end of day.
+                                </div>
+                            </div>
+                            <div class="chat-input">
+                                <input type="text" id="chat-input" placeholder="Type a message...">
+                                <button class="btn btn-primary" id="send-chat">Send</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="register">
+                        <h2 class="section-title">Register New Staff</h2>
+                        <p>DPM can register new staff members to their departments</p>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="reg-name">Full Name</label>
+                                <input type="text" class="form-control" id="reg-name" placeholder="Enter full name">
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-email">Email</label>
+                                <input type="email" class="form-control" id="reg-email" placeholder="Enter email address">
+                            </div>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="reg-password">Password</label>
+                                <input type="password" class="form-control" id="reg-password" placeholder="Create password">
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-department">Department</label>
+                                <select class="form-control" id="reg-department">
+                                    <option>IT</option>
+                                    <option>Finance</option>
+                                    <option>Operations</option>
+                                    <option>Marketing</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reg-role">Role</label>
+                            <select class="form-control" id="reg-role">
+                                <option value="staff">Staff</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Register Staff</button>
+                    </div>
                 </div>
             </div>
 
@@ -751,24 +908,31 @@
     <script>
         // User database simulation
         const users = {
-            'admin@aiseb.org': {
+            'executive@aiseb.org': {
                 password: 'admin123',
                 name: 'Executive Secretary',
                 department: 'Administration',
-                role: 'admin',
-                permissions: ['approve', 'manage_users', 'manage_files', 'register_hod']
+                role: 'executive',
+                permissions: ['final_approval', 'view_all', 'chat_all']
+            },
+            'dpm@aiseb.org': {
+                password: 'dpm123',
+                name: 'Department Manager',
+                department: 'Management',
+                role: 'dpm',
+                permissions: ['register_staff', 'view_department', 'chat_hod']
             },
             'hod@aiseb.org': {
                 password: 'hod123',
-                name: 'Sarah Johnson',
-                department: 'HR',
+                name: 'IT HOD',
+                department: 'IT',
                 role: 'hod',
-                permissions: ['forward_approvals', 'review_submissions']
+                permissions: ['review_submissions', 'forward_approvals', 'view_department', 'chat_executive']
             },
             'staff@aiseb.org': {
                 password: 'staff123',
                 name: 'John Doe',
-                department: 'HR',
+                department: 'IT',
                 role: 'staff',
                 permissions: ['submit_requests']
             }
@@ -783,6 +947,7 @@
         const userName = document.getElementById('userName');
         const profileName = document.getElementById('profileName');
         const profileDept = document.getElementById('profileDept');
+        const userAvatar = document.getElementById('userAvatar');
         const roleTitle = document.getElementById('roleTitle');
         const roleDescription = document.getElementById('roleDescription');
         const approvalDescription = document.getElementById('approvalDescription');
@@ -832,29 +997,40 @@
             if (!currentUser) return;
             
             // Update user info
-            userRole.textContent = currentUser.role === 'admin' ? 'Administrator' : 
+            userRole.textContent = currentUser.role === 'executive' ? 'Executive Secretary' : 
+                                 currentUser.role === 'dpm' ? 'Department Manager' : 
                                  currentUser.role === 'hod' ? 'Head of Department' : 'Staff';
             userName.textContent = currentUser.name;
             profileName.textContent = currentUser.name;
             profileDept.textContent = currentUser.department;
             
+            // Update avatar
+            userAvatar.className = 'avatar';
+            if (currentUser.role === 'executive') userAvatar.classList.add('admin');
+            else if (currentUser.role === 'dpm') userAvatar.classList.add('dpm');
+            else if (currentUser.role === 'hod') userAvatar.classList.add('hod');
+            else userAvatar.classList.add('staff');
+            
             // Update role description
-            if (currentUser.role === 'admin') {
-                roleTitle.textContent = 'Admin Privileges';
-                roleDescription.textContent = 'Full system access with approval authority';
+            if (currentUser.role === 'executive') {
+                roleTitle.textContent = 'Executive Privileges';
+                roleDescription.textContent = 'Final approval authority for all requests';
                 approvalDescription.textContent = 'Final approval authority: Executive Secretary only';
                 
-                // Show admin-only features
+                // Show executive features
                 document.querySelectorAll('.admin-only').forEach(el => {
                     el.style.display = 'flex';
                 });
+                document.querySelectorAll('.dpm-only').forEach(el => {
+                    el.style.display = 'none';
+                });
                 
-                // Update approval list for admin
+                // Update approval list for executive
                 document.getElementById('approval-list').innerHTML = `
                     <div class="submission-item">
                         <h3>Software License Renewal</h3>
                         <div class="submission-meta">
-                            <span>IT Support Department</span>
+                            <span>IT Department</span>
                             <span>Submitted by: David Wilson (IT HOD)</span>
                             <span>Today</span>
                         </div>
@@ -880,31 +1056,56 @@
                         </div>
                     </div>
                 `;
+            } else if (currentUser.role === 'dpm') {
+                roleTitle.textContent = 'DPM Privileges';
+                roleDescription.textContent = 'Register new staff to departments and manage department records';
+                approvalDescription.textContent = 'As DPM, you can register staff but not approve submissions';
+                
+                // Show DPM features
+                document.querySelectorAll('.admin-only').forEach(el => {
+                    el.style.display = 'none';
+                });
+                document.querySelectorAll('.dpm-only').forEach(el => {
+                    el.style.display = 'flex';
+                });
+                
+                // Update approval list for DPM
+                document.getElementById('approval-list').innerHTML = `
+                    <div class="activity-item">
+                        <i class="fas fa-info-circle"></i>
+                        <div>
+                            <p>As a Department Manager, you don't have approval authority. Your role is to register new staff members.</p>
+                        </div>
+                    </div>
+                `;
             } else if (currentUser.role === 'hod') {
                 roleTitle.textContent = 'HOD Privileges';
                 roleDescription.textContent = 'Review staff submissions and forward to Executive Secretary';
                 approvalDescription.textContent = 'Review submissions from your department staff';
                 
-                // Hide admin-only features
+                // Hide features not for HOD
                 document.querySelectorAll('.admin-only').forEach(el => {
+                    el.style.display = 'none';
+                });
+                document.querySelectorAll('.dpm-only').forEach(el => {
                     el.style.display = 'none';
                 });
                 
                 // Update approval list for HOD
                 document.getElementById('approval-list').innerHTML = `
                     <div class="submission-item">
-                        <h3>New HR Policy Document</h3>
+                        <h3>New Software Development Tool</h3>
                         <div class="submission-meta">
-                            <span>HR Department</span>
-                            <span>Submitted by: John Doe (Staff)</span>
+                            <span>IT Department</span>
+                            <span>Submitted by: Sarah Smith (Staff)</span>
                             <span>Today</span>
                         </div>
-                        <p>Request for approval of updated HR policy document for remote work.</p>
+                        <p>Request for new software development tool license for the engineering team.</p>
                         <div class="file-list">
                             <div class="file-item">
                                 <div class="file-info">
-                                    <i class="fas fa-file-word" style="color: #2b579a;"></i>
-                                    <span>HR_Policy_Update.docx</span>
+                                    <i class="fas fa-file-pdf" style="color: #e74c3c;"></i>
+                                    <span>Tool_Quote.pdf</span>
                                 </div>
                                 <div class="file-actions">
                                     <button class="btn btn-primary btn-sm"><i class="fas fa-download"></i> Download</button>
@@ -926,8 +1127,11 @@
                 roleDescription.textContent = 'Submit requests to your Head of Department';
                 approvalDescription.textContent = 'Your submissions will be reviewed by your HOD';
                 
-                // Hide admin-only features
+                // Hide features not for staff
                 document.querySelectorAll('.admin-only').forEach(el => {
+                    el.style.display = 'none';
+                });
+                document.querySelectorAll('.dpm-only').forEach(el => {
                     el.style.display = 'none';
                 });
                 
@@ -944,6 +1148,9 @@
             
             // Set up approval buttons
             setupApprovalButtons();
+            
+            // Set up chat
+            setupChat();
         }
 
         // Set up approval button functionality
@@ -954,7 +1161,7 @@
                     const statusBadge = item.querySelector('.status-badge');
                     
                     if (this.textContent.includes('Approve')) {
-                        if (currentUser.role === 'admin') {
+                        if (currentUser.role === 'executive') {
                             statusBadge.textContent = 'Approved by Executive Secretary';
                             statusBadge.className = 'status-badge status-approved';
                             alert('Request approved! This has been logged in the system.');
@@ -971,6 +1178,66 @@
                     
                     item.style.opacity = '0.7';
                 });
+            });
+        }
+
+        // Set up chat functionality
+        function setupChat() {
+            const chatInput = document.getElementById('chat-input');
+            const chatMessages = document.getElementById('chat-messages');
+            const sendChatBtn = document.getElementById('send-chat');
+
+            sendChatBtn.addEventListener('click', () => {
+                if (chatInput.value.trim() !== '') {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = 'message sent';
+                    messageDiv.innerHTML = `<strong>You:</strong> ${chatInput.value}`;
+                    chatMessages.appendChild(messageDiv);
+                    chatInput.value = '';
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    
+                    // Simulate a reply after a short delay
+                    setTimeout(() => {
+                        let reply = '';
+                        let sender = '';
+                        
+                        if (currentUser.role === 'executive') {
+                            // HODs chatting with executive
+                            const replies = [
+                                "Thanks for the update!",
+                                "I'll look into that.",
+                                "Can you provide more details?",
+                                "Let's discuss this in the meeting.",
+                                "I agree with that approach."
+                            ];
+                            reply = replies[Math.floor(Math.random() * replies.length)];
+                            sender = 'HOD';
+                        } else {
+                            // Executive chatting with HODs
+                            const replies = [
+                                "Please review the submitted documents.",
+                                "I need this approved by tomorrow.",
+                                "Can you check with your team?",
+                                "Let me know if you need any clarification.",
+                                "This has been forwarded to finance."
+                            ];
+                            reply = replies[Math.floor(Math.random() * replies.length)];
+                            sender = 'Executive Secretary';
+                        }
+                        
+                        const replyDiv = document.createElement('div');
+                        replyDiv.className = 'message received';
+                        replyDiv.innerHTML = `<strong>${sender}:</strong> ${reply}`;
+                        chatMessages.appendChild(replyDiv);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }, 1000);
+                }
+            });
+
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendChatBtn.click();
+                }
             });
         }
 
@@ -994,15 +1261,6 @@
                     // Show the selected tab content
                     const tabId = this.dataset.tab;
                     document.getElementById(tabId).classList.add('active');
-                });
-            }
-        });
-
-        // File download simulation
-        document.querySelectorAll('.btn-primary').forEach(btn => {
-            if (btn.textContent.includes('Download')) {
-                btn.addEventListener('click', function() {
-                    alert('File download initiated! (This is a simulation)');
                 });
             }
         });
