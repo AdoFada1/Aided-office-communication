@@ -587,7 +587,7 @@
         <!-- Login Form -->
         <div class="login-container" id="loginView">
             <div class="login-header">
-                <h2>AISEB Office Communication System</h2>
+                <h2>AISEC Office Communication System</h2>
                 <p>Sign in to access your dashboard</p>
             </div>
             
@@ -676,7 +676,7 @@
                         <i class="fas fa-user-plus"></i>
                         <span>Register Staff</span>
                     </div>
-                    <div class="nav-item admin-only">
+                    <div class="nav-item admin-only" data-tab="users">
                         <i class="fas fa-users"></i>
                         <span>User Management</span>
                     </div>
@@ -828,7 +828,7 @@
                                             <span>Software_Quote.pdf</span>
                                         </div>
                                         <div class="file-actions">
-                                            <button class="btn btn-primary btn-sm"><i class="fas fa-download"></i> Download</button>
+                                            <button class="btn btn-primary btn-sm download-btn"><i class="fas fa-download"></i> Download</button>
                                         </div>
                                     </div>
                                 </div>
@@ -836,8 +836,8 @@
                                     <span class="status-badge status-hod-approved">HOD Approved - Waiting Final Approval</span>
                                 </div>
                                 <div class="action-buttons">
-                                    <button class="btn btn-primary"><i class="fas fa-check"></i> Approve</button>
-                                    <button class="btn btn-danger"><i class="fas fa-times"></i> Reject</button>
+                                    <button class="btn btn-primary approve-btn"><i class="fas fa-check"></i> Approve</button>
+                                    <button class="btn btn-danger reject-btn"><i class="fas fa-times"></i> Reject</button>
                                     <button class="btn btn-warning"><i class="fas fa-comment"></i> Request Changes</button>
                                 </div>
                             </div>
@@ -864,7 +864,7 @@
                                             <span>Tool_Quote.pdf</span>
                                         </div>
                                         <div class="file-actions">
-                                            <button class="btn btn-primary btn-sm"><i class="fas fa-download"></i> Download</button>
+                                            <button class="btn btn-primary btn-sm download-btn"><i class="fas fa-download"></i> Download</button>
                                         </div>
                                     </div>
                                 </div>
@@ -872,8 +872,8 @@
                                     <span class="status-badge status-pending">Pending HOD Review</span>
                                 </div>
                                 <div class="action-buttons">
-                                    <button class="btn btn-primary"><i class="fas fa-check"></i> Approve & Forward to Executive</button>
-                                    <button class="btn btn-danger"><i class="fas fa-times"></i> Reject</button>
+                                    <button class="btn btn-primary forward-btn"><i class="fas fa-check"></i> Approve & Forward to Executive</button>
+                                    <button class="btn btn-danger reject-btn"><i class="fas fa-times"></i> Reject</button>
                                     <button class="btn btn-warning"><i class="fas fa-comment"></i> Request Changes</button>
                                 </div>
                             </div>
@@ -892,7 +892,7 @@
                                             <span>Event_Proposal.docx</span>
                                         </div>
                                         <div class="file-actions">
-                                            <button class="btn btn-primary btn-sm"><i class="fas fa-download"></i> Download</button>
+                                            <button class="btn btn-primary btn-sm download-btn"><i class="fas fa-download"></i> Download</button>
                                         </div>
                                     </div>
                                 </div>
@@ -900,8 +900,8 @@
                                     <span class="status-badge status-pending">Pending HOD Review</span>
                                 </div>
                                 <div class="action-buttons">
-                                    <button class="btn btn-primary"><i class="fas fa-check"></i> Approve & Forward to Executive</button>
-                                    <button class="btn btn-danger"><i class="fas fa-times"></i> Reject</button>
+                                    <button class="btn btn-primary forward-btn"><i class="fas fa-check"></i> Approve & Forward to Executive</button>
+                                    <button class="btn btn-danger reject-btn"><i class="fas fa-times"></i> Reject</button>
                                     <button class="btn btn-warning"><i class="fas fa-comment"></i> Request Changes</button>
                                 </div>
                             </div>
@@ -1024,11 +1024,73 @@
                         
                         <button class="btn btn-primary" id="register-staff-btn"><i class="fas fa-user-plus"></i> Register Staff</button>
                     </div>
+
+                    <div class="tab-content" id="users">
+                        <h2 class="section-title">User Management</h2>
+                        <p>Administrators can manage all system users</p>
+                        
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search users...">
+                        </div>
+                        
+                        <table class="user-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Department</th>
+                                    <th>Role</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Executive Secretary</td>
+                                    <td>executive@aiseb.org</td>
+                                    <td>Administration</td>
+                                    <td><span class="status-badge status-approved">Administrator</span></td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Department Manager</td>
+                                    <td>dpm@aiseb.org</td>
+                                    <td>Management</td>
+                                    <td><span class="status-badge status-hod-approved">DPM</span></td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>IT HOD</td>
+                                    <td>hod@aiseb.org</td>
+                                    <td>IT</td>
+                                    <td><span class="status-badge status-hod-approved">HOD</span></td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>John Doe</td>
+                                    <td>staff@aiseb.org</td>
+                                    <td>IT</td>
+                                    <td><span class="status-badge status-pending">Staff</span></td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
             <div class="footer">
-                <p>© 2025 AISEB Office Communication System</p>
+                <p>© 2023 AISEB Office Communication System</p>
             </div>
         </div>
     </div>
@@ -1059,7 +1121,7 @@
             },
             'staff@aiseb.org': {
                 password: 'staff123',
-                name: 'Ado Baba Jibrin',
+                name: 'John Doe',
                 department: 'IT',
                 role: 'staff',
                 permissions: ['submit_requests']
@@ -1176,7 +1238,7 @@
                                     <span>Software_Quote.pdf</span>
                                 </div>
                                 <div class="file-actions">
-                                    <button class="btn btn-primary btn-sm"><i class="fas fa-download"></i> Download</button>
+                                    <button class="btn btn-primary btn-sm download-btn"><i class="fas fa-download"></i> Download</button>
                                 </div>
                             </div>
                         </div>
@@ -1184,8 +1246,8 @@
                             <span class="status-badge status-hod-approved">HOD Approved - Waiting Final Approval</span>
                         </div>
                         <div class="action-buttons">
-                            <button class="btn btn-primary"><i class="fas fa-check"></i> Approve</button>
-                            <button class="btn btn-danger"><i class="fas fa-times"></i> Reject</button>
+                            <button class="btn btn-primary approve-btn"><i class="fas fa-check"></i> Approve</button>
+                            <button class="btn btn-danger reject-btn"><i class="fas fa-times"></i> Reject</button>
                             <button class="btn btn-warning"><i class="fas fa-comment"></i> Request Changes</button>
                         </div>
                     </div>
@@ -1249,7 +1311,7 @@
                                     <span>Tool_Quote.pdf</span>
                                 </div>
                                 <div class="file-actions">
-                                    <button class="btn btn-primary btn-sm"><i class="fas fa-download"></i> Download</button>
+                                    <button class="btn btn-primary btn-sm download-btn"><i class="fas fa-download"></i> Download</button>
                                 </div>
                             </div>
                         </div>
@@ -1257,8 +1319,8 @@
                             <span class="status-badge status-pending">Pending HOD Review</span>
                         </div>
                         <div class="action-buttons">
-                            <button class="btn btn-primary"><i class="fas fa-check"></i> Approve & Forward to Executive</button>
-                            <button class="btn btn-danger"><i class="fas fa-times"></i> Reject</button>
+                            <button class="btn btn-primary forward-btn"><i class="fas fa-check"></i> Approve & Forward to Executive</button>
+                            <button class="btn btn-danger reject-btn"><i class="fas fa-times"></i> Reject</button>
                             <button class="btn btn-warning"><i class="fas fa-comment"></i> Request Changes</button>
                         </div>
                     </div>
@@ -1290,43 +1352,69 @@
                 `;
             }
             
-            // Set up approval buttons
+            // Set up all interactive elements
             setupApprovalButtons();
-            
-            // Set up chat
             setupChat();
-            
-            // Set up settings
             setupSettings();
-            
-            // Set up staff registration
             setupStaffRegistration();
+            setupFileDownloads();
         }
 
         // Set up approval button functionality
         function setupApprovalButtons() {
-            document.querySelectorAll('.action-buttons .btn').forEach(btn => {
+            // Approve buttons
+            document.querySelectorAll('.approve-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const item = this.closest('.submission-item');
                     const statusBadge = item.querySelector('.status-badge');
                     
-                    if (this.textContent.includes('Approve')) {
-                        if (currentUser.role === 'executive') {
-                            statusBadge.textContent = 'Approved by Executive Secretary';
-                            statusBadge.className = 'status-badge status-approved';
-                            alert('Request approved! This has been logged in the system.');
-                        } else if (currentUser.role === 'hod') {
-                            statusBadge.textContent = 'Forwarded to Executive Secretary';
-                            statusBadge.className = 'status-badge status-forwarded';
-                            alert('Request forwarded to Executive Secretary for final approval.');
-                        }
-                    } else if (this.textContent.includes('Reject')) {
-                        statusBadge.textContent = 'Rejected';
-                        statusBadge.className = 'status-badge status-rejected';
-                        alert('Request rejected! The submitter has been notified.');
+                    if (currentUser.role === 'executive') {
+                        statusBadge.textContent = 'Approved by Executive Secretary';
+                        statusBadge.className = 'status-badge status-approved';
+                        alert('Request approved! This has been logged in the system.');
                     }
                     
                     item.style.opacity = '0.7';
+                });
+            });
+
+            // Forward buttons (for HODs)
+            document.querySelectorAll('.forward-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const item = this.closest('.submission-item');
+                    const statusBadge = item.querySelector('.status-badge');
+                    
+                    if (currentUser.role === 'hod') {
+                        statusBadge.textContent = 'Forwarded to Executive Secretary';
+                        statusBadge.className = 'status-badge status-forwarded';
+                        alert('Request forwarded to Executive Secretary for final approval.');
+                    }
+                    
+                    item.style.opacity = '0.7';
+                });
+            });
+
+            // Reject buttons
+            document.querySelectorAll('.reject-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const item = this.closest('.submission-item');
+                    const statusBadge = item.querySelector('.status-badge');
+                    
+                    statusBadge.textContent = 'Rejected';
+                    statusBadge.className = 'status-badge status-rejected';
+                    alert('Request rejected! The submitter has been notified.');
+                    
+                    item.style.opacity = '0.7';
+                });
+            });
+        }
+
+        // Set up file download functionality
+        function setupFileDownloads() {
+            document.querySelectorAll('.download-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const fileName = this.closest('.file-item').querySelector('.file-info span').textContent;
+                    alert(`Downloading file: ${fileName}`);
                 });
             });
         }
