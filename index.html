@@ -550,6 +550,13 @@
             border-radius: 20px;
         }
 
+        .settings-form {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
         @media (max-width: 1100px) {
             .dashboard {
                 grid-template-columns: 1fr;
@@ -653,9 +660,17 @@
                         <i class="fas fa-check-circle"></i>
                         <span>Approvals</span>
                     </div>
+                    <div class="nav-item hod-only" data-tab="staff">
+                        <i class="fas fa-users"></i>
+                        <span>Staff Submissions</span>
+                    </div>
                     <div class="nav-item" data-tab="chat">
                         <i class="fas fa-comments"></i>
                         <span>Chat</span>
+                    </div>
+                    <div class="nav-item" data-tab="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
                     </div>
                     <div class="nav-item dpm-only">
                         <i class="fas fa-user-plus"></i>
@@ -829,6 +844,70 @@
                         </div>
                     </div>
 
+                    <div class="tab-content" id="staff">
+                        <h2 class="section-title">Staff Submissions</h2>
+                        <p id="staffDescription">Submissions from your department staff</p>
+                        
+                        <div class="submission-list" id="staff-submissions">
+                            <div class="submission-item">
+                                <h3>New Development Tool Request</h3>
+                                <div class="submission-meta">
+                                    <span>IT Department</span>
+                                    <span>Submitted by: Sarah Smith (Staff)</span>
+                                    <span>Today</span>
+                                </div>
+                                <p>Request for new software development tool license for the engineering team.</p>
+                                <div class="file-list">
+                                    <div class="file-item">
+                                        <div class="file-info">
+                                            <i class="fas fa-file-pdf" style="color: #e74c3c;"></i>
+                                            <span>Tool_Quote.pdf</span>
+                                        </div>
+                                        <div class="file-actions">
+                                            <button class="btn btn-primary btn-sm"><i class="fas fa-download"></i> Download</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="status-badge status-pending">Pending HOD Review</span>
+                                </div>
+                                <div class="action-buttons">
+                                    <button class="btn btn-primary"><i class="fas fa-check"></i> Approve & Forward to Executive</button>
+                                    <button class="btn btn-danger"><i class="fas fa-times"></i> Reject</button>
+                                    <button class="btn btn-warning"><i class="fas fa-comment"></i> Request Changes</button>
+                                </div>
+                            </div>
+                            <div class="submission-item">
+                                <h3>Team Building Event Proposal</h3>
+                                <div class="submission-meta">
+                                    <span>IT Department</span>
+                                    <span>Submitted by: John Davis (Staff)</span>
+                                    <span>Yesterday</span>
+                                </div>
+                                <p>Proposal for quarterly team building event to boost morale.</p>
+                                <div class="file-list">
+                                    <div class="file-item">
+                                        <div class="file-info">
+                                            <i class="fas fa-file-word" style="color: #2b579a;"></i>
+                                            <span>Event_Proposal.docx</span>
+                                        </div>
+                                        <div class="file-actions">
+                                            <button class="btn btn-primary btn-sm"><i class="fas fa-download"></i> Download</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="status-badge status-pending">Pending HOD Review</span>
+                                </div>
+                                <div class="action-buttons">
+                                    <button class="btn btn-primary"><i class="fas fa-check"></i> Approve & Forward to Executive</button>
+                                    <button class="btn btn-danger"><i class="fas fa-times"></i> Reject</button>
+                                    <button class="btn btn-warning"><i class="fas fa-comment"></i> Request Changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="tab-content" id="chat">
                         <h2 class="section-title">Department Chat</h2>
                         <p>Chat with Executive Secretary and other department members</p>
@@ -853,6 +932,55 @@
                                 <input type="text" id="chat-input" placeholder="Type a message...">
                                 <button class="btn btn-primary" id="send-chat">Send</button>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="settings">
+                        <h2 class="section-title">Account Settings</h2>
+                        <p>Update your login details and personal information</p>
+                        
+                        <div class="settings-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="settings-name">Full Name</label>
+                                    <input type="text" class="form-control" id="settings-name" value="IT HOD">
+                                </div>
+                                <div class="form-group">
+                                    <label for="settings-email">Email Address</label>
+                                    <input type="email" class="form-control" id="settings-email" value="hod@aiseb.org">
+                                </div>
+                            </div>
+                            
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="settings-department">Department</label>
+                                    <input type="text" class="form-control" id="settings-department" value="IT" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="settings-role">Role</label>
+                                    <input type="text" class="form-control" id="settings-role" value="Head of Department" readonly>
+                                </div>
+                            </div>
+                            
+                            <h3 class="section-title">Change Password</h3>
+                            
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="current-password">Current Password</label>
+                                    <input type="password" class="form-control" id="current-password" placeholder="Enter current password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-password">New Password</label>
+                                    <input type="password" class="form-control" id="new-password" placeholder="Enter new password">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="confirm-password">Confirm New Password</label>
+                                <input type="password" class="form-control" id="confirm-password" placeholder="Confirm new password">
+                            </div>
+                            
+                            <button class="btn btn-primary" id="save-settings">Save Changes</button>
                         </div>
                     </div>
 
@@ -894,7 +1022,7 @@
                             </select>
                         </div>
                         
-                        <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Register Staff</button>
+                        <button class="btn btn-primary" id="register-staff-btn"><i class="fas fa-user-plus"></i> Register Staff</button>
                     </div>
                 </div>
             </div>
@@ -951,6 +1079,9 @@
         const roleTitle = document.getElementById('roleTitle');
         const roleDescription = document.getElementById('roleDescription');
         const approvalDescription = document.getElementById('approvalDescription');
+        const staffDescription = document.getElementById('staffDescription');
+        const saveSettingsBtn = document.getElementById('save-settings');
+        const registerStaffBtn = document.getElementById('register-staff-btn');
         
         // Current user
         let currentUser = null;
@@ -1024,6 +1155,9 @@
                 document.querySelectorAll('.dpm-only').forEach(el => {
                     el.style.display = 'none';
                 });
+                document.querySelectorAll('.hod-only').forEach(el => {
+                    el.style.display = 'none';
+                });
                 
                 // Update approval list for executive
                 document.getElementById('approval-list').innerHTML = `
@@ -1068,6 +1202,9 @@
                 document.querySelectorAll('.dpm-only').forEach(el => {
                     el.style.display = 'flex';
                 });
+                document.querySelectorAll('.hod-only').forEach(el => {
+                    el.style.display = 'none';
+                });
                 
                 // Update approval list for DPM
                 document.getElementById('approval-list').innerHTML = `
@@ -1082,6 +1219,7 @@
                 roleTitle.textContent = 'HOD Privileges';
                 roleDescription.textContent = 'Review staff submissions and forward to Executive Secretary';
                 approvalDescription.textContent = 'Review submissions from your department staff';
+                staffDescription.textContent = 'Submissions from your department staff';
                 
                 // Hide features not for HOD
                 document.querySelectorAll('.admin-only').forEach(el => {
@@ -1089,6 +1227,9 @@
                 });
                 document.querySelectorAll('.dpm-only').forEach(el => {
                     el.style.display = 'none';
+                });
+                document.querySelectorAll('.hod-only').forEach(el => {
+                    el.style.display = 'flex';
                 });
                 
                 // Update approval list for HOD
@@ -1116,7 +1257,7 @@
                             <span class="status-badge status-pending">Pending HOD Review</span>
                         </div>
                         <div class="action-buttons">
-                            <button class="btn btn-primary"><i class="fas fa-check"></i> Approve & Forward</button>
+                            <button class="btn btn-primary"><i class="fas fa-check"></i> Approve & Forward to Executive</button>
                             <button class="btn btn-danger"><i class="fas fa-times"></i> Reject</button>
                             <button class="btn btn-warning"><i class="fas fa-comment"></i> Request Changes</button>
                         </div>
@@ -1132,6 +1273,9 @@
                     el.style.display = 'none';
                 });
                 document.querySelectorAll('.dpm-only').forEach(el => {
+                    el.style.display = 'none';
+                });
+                document.querySelectorAll('.hod-only').forEach(el => {
                     el.style.display = 'none';
                 });
                 
@@ -1151,6 +1295,12 @@
             
             // Set up chat
             setupChat();
+            
+            // Set up settings
+            setupSettings();
+            
+            // Set up staff registration
+            setupStaffRegistration();
         }
 
         // Set up approval button functionality
@@ -1237,6 +1387,71 @@
             chatInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
                     sendChatBtn.click();
+                }
+            });
+        }
+
+        // Set up settings functionality
+        function setupSettings() {
+            saveSettingsBtn.addEventListener('click', () => {
+                const currentPassword = document.getElementById('current-password').value;
+                const newPassword = document.getElementById('new-password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+                
+                if (currentPassword && newPassword && confirmPassword) {
+                    if (currentPassword !== currentUser.password) {
+                        alert('Current password is incorrect.');
+                        return;
+                    }
+                    
+                    if (newPassword !== confirmPassword) {
+                        alert('New passwords do not match.');
+                        return;
+                    }
+                    
+                    // Update password in user database
+                    users[currentUser.email].password = newPassword;
+                    currentUser.password = newPassword;
+                    
+                    alert('Password updated successfully!');
+                    
+                    // Clear password fields
+                    document.getElementById('current-password').value = '';
+                    document.getElementById('new-password').value = '';
+                    document.getElementById('confirm-password').value = '';
+                } else {
+                    alert('Please fill in all password fields.');
+                }
+            });
+        }
+
+        // Set up staff registration functionality
+        function setupStaffRegistration() {
+            registerStaffBtn.addEventListener('click', () => {
+                const name = document.getElementById('reg-name').value;
+                const email = document.getElementById('reg-email').value;
+                const password = document.getElementById('reg-password').value;
+                const department = document.getElementById('reg-department').value;
+                
+                if (name && email && password && department) {
+                    // Add to user database
+                    users[email] = {
+                        password: password,
+                        name: name,
+                        department: department,
+                        role: 'staff',
+                        permissions: ['submit_requests']
+                    };
+                    
+                    alert(`Staff member ${name} registered successfully in ${department} department!`);
+                    
+                    // Clear form
+                    document.getElementById('reg-name').value = '';
+                    document.getElementById('reg-email').value = '';
+                    document.getElementById('reg-password').value = '';
+                    document.getElementById('reg-department').value = 'IT';
+                } else {
+                    alert('Please fill in all required fields.');
                 }
             });
         }
